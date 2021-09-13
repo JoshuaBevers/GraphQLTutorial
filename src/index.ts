@@ -7,7 +7,7 @@ import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import { HelloResolver } from './resolvers/hello';
 import { PostResolver } from './resolvers/post';
-import { Post } from './entities/Post';
+// import { Post } from './entities/Post';
 
 const main = async () => {
   const orm = await MikroORM.init(mikroConfig);
@@ -25,10 +25,6 @@ const main = async () => {
 
   await apolloServer.start();
   apolloServer.applyMiddleware({ app });
-
-  const post = await orm.em.create(Post, { title: 'my first post' });
-  orm.em.persistAndFlush(post);
-  console.log(post);
 
   app.listen(4000, () => {
     console.log('server started on local host 4000');
